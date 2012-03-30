@@ -2,3 +2,4 @@
 .bundle
 .rbenv-version
 pkg/*
+spec/test.sqlite3
