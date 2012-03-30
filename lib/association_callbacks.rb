@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
+require 'active_record'
+require 'active_support/concern'
 
 module AssociationCallbacks
   
@@ -12,3 +14,9 @@ module AssociationCallbacks
   end
   
 end
+
+lib_path = File.expand_path(File.dirname(__FILE__) + '/association_callbacks')
+
+require "#{lib_path}/active_record"
+
+ActiveRecord::Base.send(:include, AssociationCallbacks::ActiveRecord)
