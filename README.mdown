@@ -1,0 +1,70 @@
+# AssociationCallbacks
+
+Provides a way to define [callbacks](http://api.rubyonrails.org/classes/ActiveModel/Callbacks.html)
+of one [ActiveRecord](http://api.rubyonrails.org/classes/ActiveRecord/Base.html)
+model into an associated one.
+
+## Example
+
+First, two simple `Article` and `Comment` models:
+
+    class Article < ActiveRecord::Base
+      has_many :comments
+    end
+    
+    class Comment < ActiveRecord::Base
+      belongs_to :article
+    end
+
+Then, you often need to denormalize `Comment` stuff into `Post` or vice versa.
+Here is the standard way to denormalize `last_comment_at` on posts:
+
+    class Comment < ActiveRecord::Base
+      belongs_to :article
+      
+      after_create :update_post_last_comment_at
+      after_destroy :update_post_last_comment_at
+      
+      def update_post_last_comment_at
+        post.update_attributes!(:last_comment_at => post.comments.order('created_at').last.try(:created_at))
+      end
+    end
+
+But, there is a problem here: we define `Post` denormalization callbacks into
+`Comment` model. IMHO, this is the wrong place. `Post` denormalization
+**should** be in `Post` model in order to have less relationship between
+models.
+
+Here is how to do it with `association_callabacks`:
+
+    class Post < ActiveRecord::Base
+      has_many :comments
+    
+      after_create :update_last_comment_at, :source => :comments
+      after_destroy :update_last_comment_at, :source => :comments
+      
+      def update_last_comment_at
+        update_attributes!(:last_comment_at => comments.order('created_at').last.try(:created_at))
+      end
+    end
+
+You just have to specify `:source` option to your callbacks, and that's all!
+Note that `:source` option must be an existing association name.
+
+Another solution is to use [ActiveModel Observers](http://api.rubyonrails.org/classes/ActiveModel/Observer.html),
+but for a better project comprehension, I really prefer placing denormalization
+directly into model. Observers are more designed for emails notifications,
+cache sweepers, etc.
+
+## Installation
+
+Just add this into your `Gemfile`:
+
+    gem 'association_callabacks'
+
+Then, just run `bundle install`.
+
+## Executing test suite
+
+This project is fully tested with [Rspec 2](http://github.com/rspec/rspec).
+Just run `bundle exec rake` (after a `bundle install`).

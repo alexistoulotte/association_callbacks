@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.email = 'al@alweb.org'
   s.homepage = 'https://github.com/alexistoulotte/association_callbacks'
   s.summary = 'Callbacks for ActiveRecord associations'
-  s.description = 'Provides a way to define callbacks of one ActiveRecord model in associated one'
+  s.description = 'Provides a way to define callbacks of one ActiveRecord model into an associated one'
 
   s.rubyforge_project = 'association_callbacks'
 
@@ -14,10 +14,10 @@ Gem::Specification.new do |s|
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
-  
+
   s.add_dependency 'activerecord', '~> 3.2.0'
   s.add_dependency 'activesupport', '~> 3.2.0'
-  
+
   s.add_development_dependency 'rspec', '~> 2.9.0'
   s.add_development_dependency 'rspec-rails', '~> 2.9.0'
   s.add_development_dependency 'sqlite3-ruby'
