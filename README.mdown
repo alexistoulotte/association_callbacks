@@ -51,6 +51,29 @@ Here is how to do it with `association_callabacks`:
 You just have to specify `:source` option to your callbacks, and that's all!
 Note that `:source` option must be an existing association name.
 
+Note that association callbacks methods can take associated record as
+argument, above code can be:
+
+    class Post < ActiveRecord::Base
+      has_many :comments
+      
+      after_create :update_last_comment_at
+      
+      def update_last_comment_at(comment)
+        update_attributes!(:last_comment_at => comment.created_at)
+      end
+    end
+
+Association callbacks can also be defined as block:
+
+    class Post < ActiveRecord::Base
+      has_many :comments
+      
+      after_destroy :source => :comments do |post|
+        post.decrement!(:comments_count)
+      end
+    end
+
 Another solution is to use [ActiveModel Observers](http://api.rubyonrails.org/classes/ActiveModel/Observer.html),
 but for a better project comprehension, I really prefer placing denormalization
 directly into model. Observers are more designed for emails notifications,
