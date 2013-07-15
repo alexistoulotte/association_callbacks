@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/alexistoulotte/association_callbacks'
   s.summary = 'Callbacks for ActiveRecord associations'
   s.description = 'Provides a way to define callbacks of one ActiveRecord model into an associated one'
+  s.license = 'MIT'
 
   s.rubyforge_project = 'association_callbacks'
 
@@ -18,8 +19,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'activerecord', '~> 3.2.0'
   s.add_dependency 'activesupport', '~> 3.2.0'
 
-  s.add_development_dependency 'debugger', '~> 1.3.0'
-  s.add_development_dependency 'rake', '~> 0.9.2.2'
-  s.add_development_dependency 'rspec', '~> 2.11.0'
+  s.add_development_dependency 'byebug', '~> 1.6.0'
+  s.add_development_dependency 'rake', '~> 10.1.0'
+  s.add_development_dependency 'rspec', '~> 2.14.0'
   s.add_development_dependency 'sqlite3-ruby', '~> 1.3.0'
 end
