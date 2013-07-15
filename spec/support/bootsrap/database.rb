@@ -1,4 +1,4 @@
-ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: "#{File.dirname(__FILE__)}/../../test.sqlite3", timeout: 5000)
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: File.expand_path("#{__dir__}/../../test.sqlite3"), timeout: 5000)
 
 ActiveRecord::Base.connection.create_table(:comments, force: true) do |t|
   t.integer :orphan_from_id

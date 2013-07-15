@@ -1,12 +1,12 @@
 ENV["RAILS_ENV"] ||= 'test'
 
-require File.dirname(__FILE__) + '/../lib/association_callbacks'
+require File.expand_path("#{__dir__}/../lib/association_callbacks")
 
 # Support
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+Dir["#{__dir__}/support/**/*.rb"].each { |f| require f }
 
 # Mocks
-ActiveSupport::Dependencies.autoload_paths << "#{File.dirname(__FILE__)}/mocks"
+ActiveSupport::Dependencies.autoload_paths << "#{__dir__}/mocks"
 
 RSpec.configure do |config|
   config.before(:each) do
