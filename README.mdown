@@ -11,7 +11,7 @@ First, two simple `Article` and `Comment` models:
     class Article < ActiveRecord::Base
       has_many :comments
     end
-    
+
     class Comment < ActiveRecord::Base
       belongs_to :article
     end
@@ -21,10 +21,10 @@ Here is the standard way to denormalize `last_comment_at` on posts:
 
     class Comment < ActiveRecord::Base
       belongs_to :article
-      
+
       after_create :update_post_last_comment_at
       after_destroy :update_post_last_comment_at
-      
+
       def update_post_last_comment_at
         post.update_attributes!(last_comment_at: post.comments.order('created_at').last.try(:created_at))
       end
@@ -39,10 +39,10 @@ Here is how to do it with `association_callabacks`:
 
     class Post < ActiveRecord::Base
       has_many :comments
-    
+
       after_create :update_last_comment_at, source: :comments
       after_destroy :update_last_comment_at, source: :comments
-      
+
       def update_last_comment_at
         update_attributes!(last_comment_at: comments.order('created_at').last.try(:created_at))
       end
@@ -56,9 +56,9 @@ argument, above code can be:
 
     class Post < ActiveRecord::Base
       has_many :comments
-      
+
       after_create :update_last_comment_at
-      
+
       def update_last_comment_at(comment)
         update_attributes!(last_comment_at: comment.created_at)
       end
@@ -68,7 +68,7 @@ Association callbacks can also be defined as block:
 
     class Post < ActiveRecord::Base
       has_many :comments
-      
+
       after_destroy source: :comments do |post|
         post.decrement!(:comments_count)
       end
