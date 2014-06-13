@@ -16,7 +16,7 @@ describe AssociationCallbacks::ActiveRecord do
       expect {
         Comment.create!(post: post, created_at: 2.years.ago)
       }.to change { post.reload.last_comment_at }.from(nil)
-      post.last_comment_at.to_i.should be_within(5).of(2.years.ago.to_i)
+      expect(post.last_comment_at.to_i).to be_within(5).of(2.years.ago.to_i)
     end
 
     it 'invokes callback defines as block' do
@@ -44,7 +44,7 @@ describe AssociationCallbacks::ActiveRecord do
       expect {
         post.update_attributes!(title: 'foo')
       }.to change { comment.reload.post_updated_at }
-      comment.post_updated_at.to_i.should be_within(5).of(Time.now.to_i)
+      expect(comment.post_updated_at.to_i).to be_within(5).of(Time.now.to_i)
     end
 
     it 'invokes callback defines as method (with one argument)' do

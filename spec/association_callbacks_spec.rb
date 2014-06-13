@@ -5,11 +5,11 @@ describe AssociationCallbacks do
   describe '.version' do
 
     it 'is a string' do
-      AssociationCallbacks.version.should be_a(String)
+      expect(AssociationCallbacks.version).to be_a(String)
     end
 
     it 'is with correct format' do
-      AssociationCallbacks.version.should match(/^\d+\.\d+(\.\d+)?$/)
+      expect(AssociationCallbacks.version).to match(/^\d+\.\d+(\.\d+)?$/)
     end
 
     it 'is freezed' do

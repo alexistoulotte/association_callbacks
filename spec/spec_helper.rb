@@ -1,6 +1,7 @@
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path("#{__dir__}/../lib/association_callbacks")
+require 'byebug'
 
 # Support
 Dir["#{__dir__}/support/**/*.rb"].each { |f| require f }
@@ -13,4 +14,6 @@ RSpec.configure do |config|
     Comment.delete_all
     Post.delete_all
   end
+
+  config.raise_errors_for_deprecations!
 end
