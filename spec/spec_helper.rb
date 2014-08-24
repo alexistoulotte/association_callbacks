@@ -10,10 +10,10 @@ Dir["#{__dir__}/support/**/*.rb"].each { |f| require f }
 ActiveSupport::Dependencies.autoload_paths << "#{__dir__}/mocks"
 
 RSpec.configure do |config|
+  config.raise_errors_for_deprecations!
+
   config.before(:each) do
     Comment.delete_all
     Post.delete_all
   end
-
-  config.raise_errors_for_deprecations!
 end
