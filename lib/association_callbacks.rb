@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'active_record'
+require 'active_support'
 require 'active_support/concern'
 
 module AssociationCallbacks
