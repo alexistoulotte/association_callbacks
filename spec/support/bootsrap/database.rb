@@ -5,7 +5,7 @@ ActiveRecord::Base.connection.create_table(:comments, force: true) do |t|
   t.datetime :post_updated_at
   t.integer :post_id
   t.string :post_title
-  t.timestamps
+  t.timestamps null: false
 end
 ActiveRecord::Base.connection.create_table(:posts, force: true) do |t|
   t.text :body
@@ -13,5 +13,5 @@ ActiveRecord::Base.connection.create_table(:posts, force: true) do |t|
   t.datetime :last_comment_at
   t.text :texts
   t.string :title
-  t.timestamps
+  t.timestamps null: false
 end
