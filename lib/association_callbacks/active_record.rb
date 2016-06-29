@@ -38,7 +38,7 @@ module AssociationCallbacks
       end
     end
 
-    module ClassMethods
+    class_methods do
 
       private
 
