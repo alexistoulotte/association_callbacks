@@ -23,15 +23,17 @@ module AssociationCallbacks
         base.class_eval <<-EOS
           class << self
 
-            def #{callback}_with_association(*args, &block)
-              if args.last.is_a?(Hash) && args.last.key?(:source)
-                options = args.extract_options!
-                define_callback_with_association(:#{callback}, args, options, &block)
-              else
-                #{callback}_without_association(*args, &block)
+            mod = Module.new do
+              def #{callback}(*args, &block)
+                if args.last.is_a?(Hash) && args.last.key?(:source)
+                  options = args.extract_options!
+                  define_callback_with_association(:#{callback}, args, options, &block)
+                else
+                  super(*args, &block)
+                end
               end
             end
-            alias_method_chain :#{callback}, :association
+            prepend(mod)
 
           end
         EOS
