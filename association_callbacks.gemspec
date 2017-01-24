@@ -9,8 +9,6 @@ Gem::Specification.new do |s|
   s.description = 'Provides a way to define callbacks of one ActiveRecord model into an associated one'
   s.license = 'MIT'
 
-  s.rubyforge_project = 'association_callbacks'
-
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
